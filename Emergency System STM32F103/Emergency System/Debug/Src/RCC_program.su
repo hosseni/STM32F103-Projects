@@ -1,0 +1,10 @@
+RCC_program.c:17:6:MRCC_voidInit	8	static
+RCC_program.c:110:6:MRCC_voidClkEnable	16	static
+RCC_program.c:120:6:MRCC_voidClkDisable	16	static
+RCC_program.c:130:4:MRCC_u8CheckClockReady	24	static
+RCC_program.c:142:6:MRCC_voidSetBusesPrescaler	16	static
+RCC_program.c:152:6:MRCC_voidSetClkSource	16	static
+RCC_program.c:167:6:MRCC_voidSetPLLSource	16	static
+RCC_program.c:181:6:MRCC_voidSetPLLMulFactor	16	static
+RCC_program.c:189:6:MRCC_voidPreipheralEnable	16	static
+RCC_program.c:203:6:MRCC_voidPreipheralDisable	16	static

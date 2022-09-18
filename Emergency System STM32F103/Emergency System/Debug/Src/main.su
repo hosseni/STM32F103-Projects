@@ -1,0 +1,4 @@
+main.c:37:6:Task_ReadADC	8	static
+main.c:43:6:If_Temp_less100_Task	16	static
+main.c:59:6:If_Temp_more100_Task	16	static
+main.c:74:5:main	32	static

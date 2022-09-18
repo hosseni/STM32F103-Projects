@@ -1,0 +1,7 @@
+ADC.c:41:6:MADC_voidInit	16	static
+ADC.c:68:6:MADC_voidSetConversionMode	16	static
+ADC.c:106:6:MADC_voidSetRegularChannelOrder	16	static
+ADC.c:128:6:MADC_voidSetSamplingTime	16	static
+ADC.c:146:6:MADC_voidReadResultBlocking	16	static
+ADC.c:166:6:MADC_voidReadResultNonBlocking	16	static
+ADC.c:186:6:MADC_voidReadDigitalAsynch	16	static
