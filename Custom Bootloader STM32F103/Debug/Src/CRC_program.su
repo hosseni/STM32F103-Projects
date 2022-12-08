@@ -1,0 +1,2 @@
+CRC_program.c:56:6:MCRC_voidReset	4	static
+CRC_program.c:61:5:MCRC_u32CalculateCrcHw	24	static

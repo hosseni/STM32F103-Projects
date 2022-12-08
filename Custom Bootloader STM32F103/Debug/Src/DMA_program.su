@@ -1,0 +1,16 @@
+DMA_program.c:21:6:MDMA_voidInit	16	static
+DMA_program.c:67:6:MDMA1_voidChannel_Start	24	static
+DMA_program.c:80:7:MDMA_voidSetChannelStatus	16	static
+DMA_program.c:91:7:MDMA_voidSetSource_Dest_Address	24	static
+DMA_program.c:98:6:DMA_voidInterruptEnable	16	static
+DMA_program.c:104:6:DMA_voidInterruptDisable	16	static
+DMA_program.c:110:6:DMA_voidClearFlag	16	static
+DMA_program.c:115:6:DMA_u8ReadFlag	16	static
+DMA_program.c:120:6:DMA_SetCallBack	16	static
+DMA_program.c:130:6:DMA1_Channel1_IRQHandler	8	static
+DMA_program.c:139:6:DMA1_Channel2_IRQHandler	8	static
+DMA_program.c:148:6:DMA1_Channel3_IRQHandler	8	static
+DMA_program.c:157:6:DMA1_Channel4_IRQHandler	8	static
+DMA_program.c:166:6:DMA1_Channel5_IRQHandler	8	static
+DMA_program.c:175:6:DMA1_Channel6_IRQHandler	8	static
+DMA_program.c:184:6:DMA_Channel7_IRQHandler	8	static

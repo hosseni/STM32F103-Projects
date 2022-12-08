@@ -1,0 +1,13 @@
+bootloader.c:98:6:BL_Print_Message	112	static
+bootloader.c:127:15:BL_UART_Featch_Host_Command	16	static
+bootloader.c:223:13:Bootloader_Send_Data_To_Host	16	static
+bootloader.c:228:23:Bootloader_Send_ACK	24	static
+bootloader.c:238:23:Bootloader_Send_NACK	16	static
+bootloader.c:248:23:Bootloader_CRC_Verify	40	static
+bootloader.c:283:28:Bootloader_Address_Verify	24	static
+bootloader.c:312:11:Bootloader_Preforn_Flash_Erase	24	static
+bootloader.c:394:13:Bootloader_Get_Version	32	static
+bootloader.c:427:13:Bootloader_Get_Help	24	static
+bootloader.c:457:13:Bootloader_Get_Chip_Identification_Number	32	static
+bootloader.c:490:13:Bootloader_Jumb_To_Address	40	static
+bootloader.c:542:15:Bootloader_Erase_Flash	32	static
