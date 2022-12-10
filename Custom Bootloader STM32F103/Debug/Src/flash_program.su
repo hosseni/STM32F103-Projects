@@ -1,5 +1,0 @@
-flash_program.c:28:6:MFLASH_lock	4	static
-flash_program.c:33:6:MFLASH_unlock	4	static
-flash_program.c:40:14:MFLASH_programPage	32	static
-flash_program.c:91:14:MFLASH_erasePage	24	static
-flash_program.c:126:14:MFLASH_massErase	16	static
