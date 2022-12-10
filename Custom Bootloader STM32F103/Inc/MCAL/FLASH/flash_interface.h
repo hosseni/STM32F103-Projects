@@ -29,8 +29,8 @@
 
 void 		 MFLASH_lock (void);
 void 		 MFLASH_unlock (void);
-ReturnStatus MFLASH_programPage (u32  desiredAddress, u16 desiredValue);
-ReturnStatus MFLASH_erasePage (u32  desiredAddress);
+ReturnStatus MFLASH_programPage (const u32  desiredAddress,const u8 desiredValue);
+ReturnStatus MFLASH_erasePage (const u32  desiredAddress);
 ReturnStatus MFLASH_massErase(void);
 
 

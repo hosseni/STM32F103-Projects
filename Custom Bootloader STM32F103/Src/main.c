@@ -50,12 +50,29 @@ BL_StatusType CommandStatus = BL_NACK;
 	MGPIO_voidSetPinDirection(GPIO_U8_PORTA,GPIO_U8_PIN3,GPIO_INPUT_FLOATING);
 
 
-
 	//UART init
 	MUART_voidInit(UART_1);
 	MUART_voidInit(UART_2);
-
-	for(;;)
+/*
+	MFLASH_unlock();
+	u32 start_address = 0x08004400;
+	u32 end_address   = 0x08008400;
+	u32 current_address = 0x00;
+	u32 counter = 0;
+	for (current_address = 0x08004400 ; current_address <= 0x08008800 ; current_address += 0x400)
+	{
+		 MFLASH_erasePage(current_address);
+	}
+	
+	current_address = 0x08004400;
+	
+	for (counter = 0 ; current_address <= end_address ; counter+=2)
+	{
+		current_address = start_address + (u32) counter;
+		 MFLASH_programPage(current_address, (u8)0x55);
+	}
+	*/
+	 	for(;;)
 	{
 		
 #ifdef BL_DEBUG_INFO

@@ -18,10 +18,10 @@
 
 
 /* Flash status register masks */
-#define FLASH_SR_BSY					0x00000001
+#define FLASH_SR_BSY					  0x00000001
 #define FLASH_SR_PGERR					0x00000004
 #define FLASH_SR_WRPRTERR				0x00000010
-#define FLASH_SR_EOP					0x00000020
+#define FLASH_SR_EOP					  0x00000020
 
 /* Flash control register masks */
 #define FLASH_CR_PG						0x00000001
@@ -55,6 +55,7 @@ typedef struct
 
 
 volatile FLASH_t * const  FLASH = (FLASH_t *) FLASH_BASE_ADDRESS;
+
 
 
 #endif /* MCAL_FLASH_FLASH_PRIVATE_H_ */

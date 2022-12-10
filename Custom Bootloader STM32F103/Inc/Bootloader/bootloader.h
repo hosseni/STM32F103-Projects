@@ -27,9 +27,9 @@ extern u32 PAGE_ARRAY[];
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  ******************************	***************************************************************************************/
-#define BL_DEBUG_UART 			   		  UART_2
+#define BL_DEBUG_UART 			   		 		  UART_2
 #define BL_HOST_COMMUNICATION_UART 		  UART_1
-#define BL_DEBUG_INFO              		  1
+//#define BL_DEBUG_INFO              		  
 
 
 #define ENABLE_UART_DEBUG_MESSAGE 0x01
@@ -67,20 +67,26 @@ extern u32 PAGE_ARRAY[];
 #define DEBUG_METHOD    ENABLE_UART_DEBUG_MESSAGE
 
 #define BL_HOST_BUFFER_RX_LENGTH 200
-
+/**/
 /*Memory boundary*/
 #define FLASH_BASE            ((u32)0x08000000) /*!< FLASH base address in the alias region */
 #define SRAM_BASE             ((u32)0x20000000) /*!< SRAM base address in the alias region */
-
 #define FLASH_SIZE   				(64 * 1024)     /*FLASH SIZE : 64Kbyte*/       
 #define SRAM_SIZE 	 				(20 * 1024)		 /*SRAM  SIZE : 20Kbyte*/
-
 #define FLASH_END_ADDRESS    (FLASH_BASE + FLASH_SIZE)
 #define SRAM_END_ADDRESS    (SRAM_BASE + SRAM_SIZE)
 
 
 #define FLASH_MAX_PAGE_NUM     32
 #define MASS_ERASE						0xFF
+
+
+#define FLASH_PAYLOAD_WRITE_FAILED  0
+#define FLASH_PAYLOAD_WRITE_PASSED  1
+
+#define FLASH_STATUS_LOCK           0X00
+#define FLASH_STATUS_UNLOCK         0x01     
+
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
@@ -101,12 +107,10 @@ typedef enum
 	CRC_PASSED
 }CRC_VerifyType;
 
-typedef enum
-{
-	ADDRESS_IS_INVALID,
-	ADDRESS_IS_VALID
+typedef u8 Address_VerifyType;
+#define 	ADDRESS_IS_INVALID 0x00
+#define	ADDRESS_IS_VALID 0x01
 	
-}Address_VerifyType;
 
 typedef u8 Erase_VerifyType;
 

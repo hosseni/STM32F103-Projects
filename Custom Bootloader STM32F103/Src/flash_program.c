@@ -37,18 +37,19 @@ void MFLASH_unlock (void)
 }
 
 
-ReturnStatus MFLASH_programPage (u32  desiredAddress, u16 desiredValue)
+ReturnStatus MFLASH_programPage (const u32  desiredAddress, const u8 desiredValue)
 {
 	ReturnStatus status = OK;
-	u16 programmedValue;
+	u8 programmedValue;
 	u32 lockStatus;
 	u32 programmingErr;
 
+	
 	/* Checking if flash is unlocked */
 	lockStatus = FLASH->CR & FLASH_CR_LOCK;
 	if (lockStatus == FLASH_CR_LOCK)
 	{
-		status = OK;
+		status = NOT_OK;
 	}
 	else
 	{
@@ -73,7 +74,7 @@ ReturnStatus MFLASH_programPage (u32  desiredAddress, u16 desiredValue)
 			while ((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 
 			/* Checking the programmed value */
-			programmedValue = *((u16 *)desiredAddress);
+			programmedValue = (*((u16 *)desiredAddress));
 
 			if (programmedValue != desiredValue)
 			{
@@ -88,7 +89,8 @@ ReturnStatus MFLASH_programPage (u32  desiredAddress, u16 desiredValue)
 	return status;
 }
 
-ReturnStatus MFLASH_erasePage (u32  desiredAddress)
+
+ReturnStatus MFLASH_erasePage (const u32  desiredAddress)
 {
 	ReturnStatus status = OK;
 	u32 lockStatus;
