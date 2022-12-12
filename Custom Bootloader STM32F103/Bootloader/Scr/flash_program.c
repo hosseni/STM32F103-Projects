@@ -37,10 +37,10 @@ void MFLASH_unlock (void)
 }
 
 
-ReturnStatus MFLASH_programPage (const u32  desiredAddress, const u8 desiredValue)
+ReturnStatus MFLASH_programPage (const u32  desiredAddress, const u16 desiredValue)
 {
 	ReturnStatus status = OK;
-	u8 programmedValue;
+	u16 programmedValue;
 	u32 lockStatus;
 	u32 programmingErr;
 

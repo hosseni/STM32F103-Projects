@@ -157,10 +157,10 @@ def Process_CBL_GET_RDP_STATUS_CMD(Data_Len):
 def Process_CBL_GO_TO_ADDR_CMD(Data_Len):
     Serial_Data = Read_Serial_Port(Data_Len)
     _value_ = bytearray(Serial_Data)
-    if(_value_[0] == 1):
-        print("\n   Address Status is Valid")
+    if(Serial_Data == 1):
+        print("\n   Address Status is Valid" , _value_)
     else:
-        print("\n   Address Status is InValid")
+        print("\n   Address Status is InValid", _value_)
 
 def Process_CBL_FLASH_ERASE_CMD(Data_Len):
     BL_Erase_Status = 0

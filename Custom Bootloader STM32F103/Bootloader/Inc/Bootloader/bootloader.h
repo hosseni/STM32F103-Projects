@@ -108,8 +108,8 @@ typedef enum
 }CRC_VerifyType;
 
 typedef u8 Address_VerifyType;
-#define 	ADDRESS_IS_INVALID 0x00
-#define	ADDRESS_IS_VALID 0x01
+#define 	ADDRESS_IS_INVALID 0
+#define	  ADDRESS_IS_VALID   1
 	
 
 typedef u8 Erase_VerifyType;

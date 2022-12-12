@@ -62,7 +62,7 @@ static void           	   Bootloader_Send_NACK									  ( );
 static void           		 Bootloader_Send_Data_To_Host 					( u8 *Data_Buffer, u8 Data_Len);
 static Address_VerifyType  Bootloader_Address_Verify   						( u32 Address);
 static u8							     Bootloader_Preforn_Flash_Erase 				( u8 pageNum , u8 NumOfPage);
-static u8 								 Bootloader_Flash_Write_Payload         ( u8 *Host_Payload, u32 Payload_Start_Address, u32 Payload_Length);
+static u8 								 Bootloader_Flash_Write_Payload         ( u16 *Host_Payload, u32 Payload_Start_Address, u32 Payload_Length);
 
 static void           Bootloader_Get_Version 					  					( u8 *Host_Buffer);
 static void           Bootloader_Get_Help 					      				( u8 *Host_Buffer);
@@ -217,7 +217,6 @@ BL_StatusType BL_UART_Featch_Host_Command (void)
 
 			default :
 				BL_Print_Message("Invalid command code received from host ... \n");
-			
 				break;
 			}
 		}
@@ -395,7 +394,7 @@ BL_Print_Message(" Number of pages is not allowed ....\n" );
 	return Erase_Status;
 }
 
-static u8 Bootloader_Flash_Write_Payload ( u8 *Host_Payload, u32 Payload_Start_Address, u32 Payload_Length)
+static u8 Bootloader_Flash_Write_Payload ( u16 *Host_Payload, u32 Payload_Start_Address, u32 Payload_Length)
 {
 	u8 	Flash_Payload_Write_Status = FLASH_PAYLOAD_WRITE_FAILED;
 	u32 Payload_Counter 					 = 0;
@@ -403,7 +402,7 @@ static u8 Bootloader_Flash_Write_Payload ( u8 *Host_Payload, u32 Payload_Start_A
 	u32 Current_Payload_Address    = 0;
 	MFLASH_unlock();
 
-	for (Payload_Counter = 0; Payload_Counter <= Payload_Length; Payload_Counter +=1)
+	for (Payload_Counter = 0; Payload_Counter < Payload_Length; Payload_Counter +=1)
 	{
 
 		Current_Payload_Address = (Payload_Start_Address + (Payload_Counter*2));
@@ -462,7 +461,6 @@ static void Bootloader_Get_Version 					  ( u8 * Host_Buffer)
 	{
 		Bootloader_Send_NACK();
 	}
-
 }
 
 
@@ -501,10 +499,16 @@ static void Bootloader_Get_Chip_Identification_Number ( u8 *Host_Buffer)
 #ifdef BL_DEBUG_INFO
 	BL_Print_Message ("Read the MCU chip identification number ..\n");
 #endif
+
 	u16 Host_CMD_Packet_Len = 0;
 	u32 Host_CRC32 = 0;
 	u16 Mcu_Identification_Num = 0;
 
+	/*
+void (*app_reset_handler)(void) = (void *)(*((volatile u32 *)(0x8004400 + 4U)));
+	app_reset_handler();
+	*/
+	
 	/*Extract CRC - Packet length sent by host */
 	Host_CMD_Packet_Len = Host_Buffer[0] + 1;
 	Host_CRC32 = *((u32 *) ((Host_Buffer + Host_CMD_Packet_Len) - CRC_TYPE_SIZE_BYTE));
@@ -525,7 +529,7 @@ static void Bootloader_Get_Chip_Identification_Number ( u8 *Host_Buffer)
 	{
 		Bootloader_Send_NACK();
 	}
-
+	
 
 }
 
@@ -558,23 +562,26 @@ static void Bootloader_Jumb_To_Address         	      ( u8 *Host_Buffer)
 		if (ADDRESS_IS_VALID == Host_Address_Status)
 		{
 			/*report host Verifying Address_Status */
-			Bootloader_Send_Data_To_Host((u8 *)Host_Address_Status, 1);
-			void (*MainApp) (void) = (void *) (Host_Jumb_Address +1 );
+			Bootloader_Send_Data_To_Host((u8 *)&Host_Address_Status, 1);
+
 #ifdef BL_DEBUG_INFO
 	BL_Print_Message ("Jumb to 0x%X\n", MainApp);
 #endif
-			MainApp();
+
+void (*app_reset_handler)(void) = (void *)(*((volatile u32 *)(Host_Jumb_Address + 4U)));
+	app_reset_handler();			
+	
 		}
 		else
 		{
-			Bootloader_Send_Data_To_Host((u8 *)Host_Address_Status, 1);			
+			Bootloader_Send_Data_To_Host((u8 *)&Host_Address_Status, 1);			
 		}
 		
 	}
 	else
 	{
 		Bootloader_Send_NACK();
-		Bootloader_Send_Data_To_Host((u8 *)Host_Address_Status, 1);			
+		Bootloader_Send_Data_To_Host((u8 *)&Host_Address_Status, 1);			
 	}
 
 
@@ -644,6 +651,7 @@ static void Bootloader_Memory_Write ( u8 *Host_Buffer)
 	Address_VerifyType Address_State 				= ADDRESS_IS_INVALID;
 	u8 	Flash_Payload_Write_Status          = FLASH_PAYLOAD_WRITE_FAILED;
 	u32 							 Start_Address				= 0;
+	
 	/*Extract CRC - Packet length sent by host */
 	Host_CMD_Packet_Len = Host_Buffer[0] + 1;
 	Host_CRC32 = *((u32 *) ((Host_Buffer + Host_CMD_Packet_Len) - CRC_TYPE_SIZE_BYTE));
@@ -659,9 +667,8 @@ static void Bootloader_Memory_Write ( u8 *Host_Buffer)
 		if (Address_State == ADDRESS_IS_VALID)
 		{
 			Payload_len = Host_Buffer[6];
-			Start_Address = Host_Address +(Flashing_Flag*(Payload_len *2))  ;
-
-			Flash_Payload_Write_Status = Bootloader_Flash_Write_Payload ((u8 *)&Host_Buffer[7],Start_Address, Payload_len);
+ 
+			Flash_Payload_Write_Status = Bootloader_Flash_Write_Payload ((u16 *)&Host_Buffer[7],Host_Address, Payload_len/2);
 	    Flashing_Flag++;
 			if (Flash_Payload_Write_Status == FLASH_PAYLOAD_WRITE_PASSED)
 			{
